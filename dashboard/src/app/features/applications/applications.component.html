@@ -7,44 +7,53 @@
     </button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+  <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
     @for (app of applications(); track app.id) {
-      <div class="bg-white rounded-lg p-6 shadow" [class.opacity-70]="!app.isActive">
-        <div class="flex justify-between items-center mb-2">
-          <h3 class="m-0 text-[#1a1a2e] font-semibold">{{ app.name }}</h3>
-          <span class="py-1 px-2 rounded text-xs text-white"
+      <div class="bg-white rounded-lg p-5 shadow flex flex-col" [class.opacity-70]="!app.isActive">
+        <!-- Header -->
+        <div class="flex justify-between items-start gap-2 mb-3">
+          <h3 class="m-0 text-[#1a1a2e] font-semibold text-base break-words min-w-0 flex-1">{{ app.name }}</h3>
+          <span class="py-1 px-2 rounded text-xs text-white shrink-0"
                 [class]="app.isActive ? 'bg-green-600' : 'bg-red-500'">
             {{ app.isActive ? 'Active' : 'Inactive' }}
           </span>
         </div>
-        <p class="text-gray-500 mb-4">{{ app.description || 'No description' }}</p>
+
+        <!-- Description -->
+        <p class="text-gray-500 mb-4 text-sm">{{ app.description || 'No description' }}</p>
+
+        <!-- API Key -->
         <div class="bg-gray-50 p-3 rounded mb-4 flex items-center gap-2">
-          <label class="font-semibold text-sm">API Key:</label>
-          <code class="flex-1 text-xs overflow-hidden text-ellipsis">
-            {{ showApiKey() === app.id ? app.apiKey : '••••••••••••••••' }}
+          <label class="font-semibold text-sm shrink-0">API Key:</label>
+          <code class="flex-1 text-xs overflow-hidden text-ellipsis whitespace-nowrap min-w-0">
+            {{ showApiKey() === app.id ? app.apiKey : '••••••••' }}
           </code>
-          <button (click)="toggleApiKey(app.id)" title="Show/Hide"
-                  class="bg-transparent border-none cursor-pointer p-1 text-base">
-            {{ showApiKey() === app.id ? '👁' : '👁‍🗨' }}
-          </button>
-          <button (click)="copyApiKey(app.apiKey)" title="Copy"
-                  class="bg-transparent border-none cursor-pointer p-1 text-base">
-            📋
-          </button>
+          <div class="flex shrink-0">
+            <button (click)="toggleApiKey(app.id)" title="Show/Hide"
+                    class="bg-transparent border-none cursor-pointer p-1 text-base hover:bg-gray-200 rounded">
+              {{ showApiKey() === app.id ? '👁' : '👁‍🗨' }}
+            </button>
+            <button (click)="copyApiKey(app.apiKey)" title="Copy"
+                    class="bg-transparent border-none cursor-pointer p-1 text-base hover:bg-gray-200 rounded">
+              📋
+            </button>
+          </div>
         </div>
-        <div class="flex justify-between items-center flex-wrap gap-2">
-          <span class="text-xs text-gray-500">Created: {{ app.createdAt | date:'short' }}</span>
-          <div class="flex gap-2">
+
+        <!-- Footer -->
+        <div class="mt-auto pt-3 border-t border-gray-100">
+          <span class="text-xs text-gray-500 block mb-3">Created: {{ app.createdAt | date:'short' }}</span>
+          <div class="grid grid-cols-3 gap-2">
             <button (click)="regenerateKey(app)"
-                    class="py-1 px-2 text-xs border border-gray-300 bg-white rounded cursor-pointer hover:bg-gray-50">
-              Regenerate Key
+                    class="py-2 px-1 text-xs border border-gray-300 bg-white rounded cursor-pointer hover:bg-gray-50 transition-colors text-center">
+              Regenerate
             </button>
             <button (click)="toggleActive(app)"
-                    class="py-1 px-2 text-xs border border-amber-500 text-amber-500 bg-white rounded cursor-pointer hover:bg-gray-50">
+                    class="py-2 px-1 text-xs border border-amber-500 text-amber-600 bg-white rounded cursor-pointer hover:bg-amber-50 transition-colors text-center">
               {{ app.isActive ? 'Deactivate' : 'Activate' }}
             </button>
             <button (click)="deleteApp(app)"
-                    class="py-1 px-2 text-xs border border-red-500 text-red-500 bg-white rounded cursor-pointer hover:bg-gray-50">
+                    class="py-2 px-1 text-xs border border-red-500 text-red-500 bg-white rounded cursor-pointer hover:bg-red-50 transition-colors text-center">
               Delete
             </button>
           </div>
@@ -61,8 +70,8 @@
 
   <!-- Create Modal -->
   @if (showCreateModal()) {
-    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" (click)="showCreateModal.set(false)">
-      <div class="bg-white p-6 rounded-lg w-[90%] max-w-md" (click)="$event.stopPropagation()">
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" (click)="showCreateModal.set(false)">
+      <div class="bg-white p-6 rounded-lg w-full max-w-md" (click)="$event.stopPropagation()">
         <h3 class="m-0 mb-4 text-lg font-semibold">Create New Application</h3>
         <form (ngSubmit)="createApplication()">
           <div class="mb-4">
