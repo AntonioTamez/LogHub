@@ -1,0 +1,38 @@
+@if (authService.isAuthenticated()) {
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo">
+        <h1>LogHub</h1>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active">
+            <span class="icon">📊</span> Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/logs" routerLinkActive="active">
+            <span class="icon">📝</span> Logs
+          </a>
+        </li>
+        <li>
+          <a routerLink="/applications" routerLinkActive="active">
+            <span class="icon">📱</span> Applications
+          </a>
+        </li>
+      </ul>
+      <div class="user-section">
+        <div class="user-info">
+          <span class="user-name">{{ authService.currentUser()?.name }}</span>
+          <span class="user-email">{{ authService.currentUser()?.email }}</span>
+        </div>
+        <button class="logout-btn" (click)="authService.logout()">Logout</button>
+      </div>
+    </nav>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

@@ -1,0 +1,164 @@
+.dashboard {
+  padding: 1.5rem;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  color: #1a1a2e;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1a1a2e;
+}
+
+.card-label {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.card-warning .card-value {
+  color: #f39c12;
+}
+
+.card-error .card-value {
+  color: #e74c3c;
+}
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chart-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+  }
+}
+
+.realtime-logs {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.connection-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: #e74c3c;
+  color: white;
+
+  &.connected {
+    background: #27ae60;
+  }
+}
+
+.log-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.log-level {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+.level-0 .log-level,
+.level-1 .log-level {
+  background: #eee;
+  color: #666;
+}
+
+.level-2 .log-level {
+  background: #d4edda;
+  color: #155724;
+}
+
+.level-3 .log-level {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.level-4 .log-level {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.level-5 .log-level {
+  background: #721c24;
+  color: white;
+}
+
+.log-message {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-time {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.no-logs {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
+}
