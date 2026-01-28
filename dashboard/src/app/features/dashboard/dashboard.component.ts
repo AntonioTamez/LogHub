@@ -11,8 +11,7 @@ import { LogLevel } from '../../core/models/log-entry.model';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, BaseChartDirective],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
   private logService = inject(LogService);

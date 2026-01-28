@@ -1,30 +1,30 @@
-<div class="dashboard">
-  <h1>Dashboard</h1>
+<div class="p-6">
+  <h1 class="mb-6 text-[#1a1a2e] text-2xl font-bold">Dashboard</h1>
 
   <!-- Summary Cards -->
-  <div class="summary-cards">
-    <div class="card">
-      <div class="card-value">{{ summary()?.totalApplications || 0 }}</div>
-      <div class="card-label">Applications</div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <div class="text-4xl font-bold text-[#1a1a2e]">{{ summary()?.totalApplications || 0 }}</div>
+      <div class="text-gray-500 mt-2">Applications</div>
     </div>
-    <div class="card">
-      <div class="card-value">{{ summary()?.logsLast24Hours || 0 }}</div>
-      <div class="card-label">Logs (24h)</div>
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <div class="text-4xl font-bold text-[#1a1a2e]">{{ summary()?.logsLast24Hours || 0 }}</div>
+      <div class="text-gray-500 mt-2">Logs (24h)</div>
     </div>
-    <div class="card card-warning">
-      <div class="card-value">{{ summary()?.warningsLast24Hours || 0 }}</div>
-      <div class="card-label">Warnings (24h)</div>
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <div class="text-4xl font-bold text-amber-500">{{ summary()?.warningsLast24Hours || 0 }}</div>
+      <div class="text-gray-500 mt-2">Warnings (24h)</div>
     </div>
-    <div class="card card-error">
-      <div class="card-value">{{ summary()?.errorsLast24Hours || 0 }}</div>
-      <div class="card-label">Errors (24h)</div>
+    <div class="bg-white p-6 rounded-lg shadow text-center">
+      <div class="text-4xl font-bold text-red-500">{{ summary()?.errorsLast24Hours || 0 }}</div>
+      <div class="text-gray-500 mt-2">Errors (24h)</div>
     </div>
   </div>
 
   <!-- Charts -->
-  <div class="charts-row">
-    <div class="chart-container">
-      <h3>Logs by Level</h3>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs by Level</h3>
       @if (barChartData()) {
         <canvas baseChart
           [type]="'bar'"
@@ -34,8 +34,8 @@
       }
     </div>
 
-    <div class="chart-container">
-      <h3>Logs by Application</h3>
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs by Application</h3>
       @if (pieChartData()) {
         <canvas baseChart
           [type]="'pie'"
@@ -46,8 +46,8 @@
     </div>
   </div>
 
-  <div class="chart-container full-width">
-    <h3>Logs Over Time</h3>
+  <div class="bg-white p-6 rounded-lg shadow">
+    <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs Over Time</h3>
     @if (lineChartData()) {
       <canvas baseChart
         [type]="'line'"
@@ -58,23 +58,33 @@
   </div>
 
   <!-- Real-time Logs -->
-  <div class="realtime-logs">
-    <h3>
+  <div class="bg-white p-6 rounded-lg shadow mt-4">
+    <h3 class="m-0 mb-4 flex items-center gap-2 font-semibold">
       Real-time Logs
-      <span class="connection-status" [class.connected]="signalRService.connectionState() === 'Connected'">
+      <span class="text-xs py-1 px-2 rounded text-white"
+            [class]="signalRService.connectionState() === 'Connected' ? 'bg-green-600' : 'bg-red-500'">
         {{ signalRService.connectionState() === 'Connected' ? 'Connected' : 'Disconnected' }}
       </span>
     </h3>
-    <div class="log-list">
+    <div class="max-h-72 overflow-y-auto">
       @for (log of signalRService.recentLogs().slice(0, 10); track log.id) {
-        <div class="log-item" [class]="'level-' + log.level">
-          <span class="log-level">{{ getLogLevelName(log.level) }}</span>
-          <span class="log-message">{{ log.message }}</span>
-          <span class="log-time">{{ log.timestamp | date:'HH:mm:ss' }}</span>
+        <div class="flex items-center gap-4 p-2 border-b border-gray-100">
+          <span class="py-1 px-2 rounded text-xs font-medium min-w-[80px] text-center"
+                [class]="{
+                  'bg-gray-200 text-gray-600': log.level === 0 || log.level === 1,
+                  'bg-green-100 text-green-800': log.level === 2,
+                  'bg-amber-100 text-amber-800': log.level === 3,
+                  'bg-red-100 text-red-800': log.level === 4,
+                  'bg-red-800 text-white': log.level === 5
+                }">
+            {{ getLogLevelName(log.level) }}
+          </span>
+          <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ log.message }}</span>
+          <span class="text-gray-500 text-sm">{{ log.timestamp | date:'HH:mm:ss' }}</span>
         </div>
       }
       @if (signalRService.recentLogs().length === 0) {
-        <div class="no-logs">Waiting for logs...</div>
+        <div class="text-center text-gray-500 py-8">Waiting for logs...</div>
       }
     </div>
   </div>

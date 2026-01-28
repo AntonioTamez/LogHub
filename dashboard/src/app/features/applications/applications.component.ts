@@ -8,8 +8,7 @@ import { Application, CreateApplicationRequest } from '../../core/models/applica
   selector: 'app-applications',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './applications.component.html',
-  styleUrl: './applications.component.scss'
+  templateUrl: './applications.component.html'
 })
 export class ApplicationsComponent implements OnInit {
   private applicationService = inject(ApplicationService);

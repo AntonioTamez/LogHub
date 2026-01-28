@@ -1,27 +1,8 @@
-/* Global Styles */
-* {
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #333;
-  background: #f5f6fa;
-}
-
-a {
-  color: #1a1a2e;
-  text-decoration: none;
-}
-
-button {
-  font-family: inherit;
-}
-
-/* Scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

@@ -10,8 +10,7 @@ import { Application } from '../../core/models/application.model';
   selector: 'app-log-viewer',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './log-viewer.component.html',
-  styleUrl: './log-viewer.component.scss'
+  templateUrl: './log-viewer.component.html'
 })
 export class LogViewerComponent implements OnInit {
   private logService = inject(LogService);

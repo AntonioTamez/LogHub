@@ -1,16 +1,18 @@
-<div class="log-viewer">
-  <h1>Log Viewer</h1>
+<div class="p-6">
+  <h1 class="mb-6 text-[#1a1a2e] text-2xl font-bold">Log Viewer</h1>
 
   <!-- Filters -->
-  <div class="filters">
-    <select [(ngModel)]="filters.applicationId" (change)="search()">
+  <div class="flex gap-2 mb-4 flex-wrap">
+    <select [(ngModel)]="filters.applicationId" (change)="search()"
+            class="py-2 px-3 border border-gray-300 rounded text-sm focus:outline-none focus:border-[#1a1a2e]">
       <option value="">All Applications</option>
       @for (app of applications(); track app.id) {
         <option [value]="app.id">{{ app.name }}</option>
       }
     </select>
 
-    <select [(ngModel)]="filters.minLevel" (change)="search()">
+    <select [(ngModel)]="filters.minLevel" (change)="search()"
+            class="py-2 px-3 border border-gray-300 rounded text-sm focus:outline-none focus:border-[#1a1a2e]">
       <option [ngValue]="undefined">All Levels</option>
       <option [ngValue]="0">Trace+</option>
       <option [ngValue]="1">Debug+</option>
@@ -25,40 +27,58 @@
       [(ngModel)]="filters.searchText"
       placeholder="Search logs..."
       (keyup.enter)="search()"
+      class="flex-1 min-w-[200px] py-2 px-3 border border-gray-300 rounded text-sm focus:outline-none focus:border-[#1a1a2e]"
     />
 
-    <button class="btn" (click)="search()">Search</button>
-    <button class="btn btn-secondary" (click)="clearFilters()">Clear</button>
+    <button (click)="search()"
+            class="py-2 px-4 bg-[#1a1a2e] text-white rounded border-none cursor-pointer hover:opacity-90 transition-opacity">
+      Search
+    </button>
+    <button (click)="clearFilters()"
+            class="py-2 px-4 bg-gray-400 text-white rounded border-none cursor-pointer hover:opacity-90 transition-opacity">
+      Clear
+    </button>
   </div>
 
   <!-- Loading -->
   @if (loading()) {
-    <div class="loading">Loading...</div>
+    <div class="text-center py-8 text-gray-500">Loading...</div>
   }
 
   <!-- Logs Table -->
-  <div class="logs-table" [class.loading-overlay]="loading()">
-    <table>
+  <div class="bg-white rounded-lg shadow overflow-hidden" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
+    <table class="w-full border-collapse">
       <thead>
         <tr>
-          <th>Timestamp</th>
-          <th>Level</th>
-          <th>Application</th>
-          <th>Message</th>
+          <th class="py-3 px-4 text-left bg-gray-50 font-semibold text-gray-800 border-b border-gray-200">Timestamp</th>
+          <th class="py-3 px-4 text-left bg-gray-50 font-semibold text-gray-800 border-b border-gray-200">Level</th>
+          <th class="py-3 px-4 text-left bg-gray-50 font-semibold text-gray-800 border-b border-gray-200">Application</th>
+          <th class="py-3 px-4 text-left bg-gray-50 font-semibold text-gray-800 border-b border-gray-200">Message</th>
         </tr>
       </thead>
       <tbody>
         @for (log of logs(); track log.id) {
-          <tr [class]="'level-' + log.level" (click)="selectLog(log)">
-            <td class="timestamp">{{ log.timestamp | date:'short' }}</td>
-            <td><span class="level-badge">{{ getLogLevelName(log.level) }}</span></td>
-            <td>{{ log.applicationName }}</td>
-            <td class="message">{{ log.message }}</td>
+          <tr class="cursor-pointer hover:bg-gray-50 border-b border-gray-100" (click)="selectLog(log)">
+            <td class="py-3 px-4 whitespace-nowrap text-gray-500 text-sm">{{ log.timestamp | date:'short' }}</td>
+            <td class="py-3 px-4">
+              <span class="py-1 px-2 rounded text-xs font-medium"
+                    [class]="{
+                      'bg-gray-200 text-gray-600': log.level === 0 || log.level === 1,
+                      'bg-green-100 text-green-800': log.level === 2,
+                      'bg-amber-100 text-amber-800': log.level === 3,
+                      'bg-red-100 text-red-800': log.level === 4,
+                      'bg-red-800 text-white': log.level === 5
+                    }">
+                {{ getLogLevelName(log.level) }}
+              </span>
+            </td>
+            <td class="py-3 px-4">{{ log.applicationName }}</td>
+            <td class="py-3 px-4 max-w-[400px] overflow-hidden text-ellipsis whitespace-nowrap">{{ log.message }}</td>
           </tr>
         }
         @if (logs().length === 0 && !loading()) {
           <tr>
-            <td colspan="4" class="no-data">No logs found</td>
+            <td colspan="4" class="text-center text-gray-500 py-8">No logs found</td>
           </tr>
         }
       </tbody>
@@ -66,68 +86,77 @@
   </div>
 
   <!-- Pagination -->
-  <div class="pagination">
-    <button [disabled]="!pagedResponse()?.hasPreviousPage" (click)="goToPage(currentPage() - 1)">
+  <div class="flex justify-center items-center gap-4 py-4">
+    <button [disabled]="!pagedResponse()?.hasPreviousPage" (click)="goToPage(currentPage() - 1)"
+            class="py-2 px-4 border border-gray-300 bg-white rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50">
       Previous
     </button>
-    <span>Page {{ currentPage() }} of {{ pagedResponse()?.totalPages || 1 }}</span>
-    <button [disabled]="!pagedResponse()?.hasNextPage" (click)="goToPage(currentPage() + 1)">
+    <span class="text-gray-600">Page {{ currentPage() }} of {{ pagedResponse()?.totalPages || 1 }}</span>
+    <button [disabled]="!pagedResponse()?.hasNextPage" (click)="goToPage(currentPage() + 1)"
+            class="py-2 px-4 border border-gray-300 bg-white rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50">
       Next
     </button>
   </div>
 
   <!-- Log Detail Modal -->
   @if (selectedLog()) {
-    <div class="modal-overlay" (click)="selectedLog.set(null)">
-      <div class="modal" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h3>Log Details</h3>
-          <button class="close-btn" (click)="selectedLog.set(null)">&times;</button>
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" (click)="selectedLog.set(null)">
+      <div class="bg-white rounded-lg w-[90%] max-w-[700px] max-h-[90vh] overflow-y-auto" (click)="$event.stopPropagation()">
+        <div class="flex justify-between items-center p-4 border-b border-gray-200">
+          <h3 class="m-0 text-lg font-semibold">Log Details</h3>
+          <button (click)="selectedLog.set(null)" class="bg-transparent border-none text-2xl cursor-pointer text-gray-500 hover:text-gray-800">&times;</button>
         </div>
-        <div class="modal-body">
-          <div class="detail-row">
-            <label>ID:</label>
+        <div class="p-4">
+          <div class="mb-4">
+            <label class="block font-semibold text-gray-800 mb-1">ID:</label>
             <span>{{ selectedLog()!.id }}</span>
           </div>
-          <div class="detail-row">
-            <label>Timestamp:</label>
+          <div class="mb-4">
+            <label class="block font-semibold text-gray-800 mb-1">Timestamp:</label>
             <span>{{ selectedLog()!.timestamp | date:'medium' }}</span>
           </div>
-          <div class="detail-row">
-            <label>Level:</label>
-            <span class="level-badge" [class]="'level-' + selectedLog()!.level">
+          <div class="mb-4">
+            <label class="block font-semibold text-gray-800 mb-1">Level:</label>
+            <span class="py-1 px-2 rounded text-xs font-medium"
+                  [class]="{
+                    'bg-gray-200 text-gray-600': selectedLog()!.level === 0 || selectedLog()!.level === 1,
+                    'bg-green-100 text-green-800': selectedLog()!.level === 2,
+                    'bg-amber-100 text-amber-800': selectedLog()!.level === 3,
+                    'bg-red-100 text-red-800': selectedLog()!.level === 4,
+                    'bg-red-800 text-white': selectedLog()!.level === 5
+                  }">
               {{ getLogLevelName(selectedLog()!.level) }}
             </span>
           </div>
-          <div class="detail-row">
-            <label>Application:</label>
+          <div class="mb-4">
+            <label class="block font-semibold text-gray-800 mb-1">Application:</label>
             <span>{{ selectedLog()!.applicationName }}</span>
           </div>
-          <div class="detail-row">
-            <label>Message:</label>
-            <span class="message-full">{{ selectedLog()!.message }}</span>
+          <div class="mb-4">
+            <label class="block font-semibold text-gray-800 mb-1">Message:</label>
+            <span class="break-words">{{ selectedLog()!.message }}</span>
           </div>
           @if (selectedLog()!.exception) {
-            <div class="detail-row">
-              <label>Exception:</label>
-              <pre>{{ selectedLog()!.exception }}</pre>
+            <div class="mb-4">
+              <label class="block font-semibold text-gray-800 mb-1">Exception:</label>
+              <pre class="bg-gray-50 p-2 rounded overflow-x-auto text-sm">{{ selectedLog()!.exception }}</pre>
             </div>
           }
           @if (selectedLog()!.stackTrace) {
-            <div class="detail-row">
-              <label>Stack Trace:</label>
-              <pre>{{ selectedLog()!.stackTrace }}</pre>
+            <div class="mb-4">
+              <label class="block font-semibold text-gray-800 mb-1">Stack Trace:</label>
+              <pre class="bg-gray-50 p-2 rounded overflow-x-auto text-sm">{{ selectedLog()!.stackTrace }}</pre>
             </div>
           }
           @if (selectedLog()!.properties) {
-            <div class="detail-row">
-              <label>Properties:</label>
-              <pre>{{ selectedLog()!.properties | json }}</pre>
+            <div class="mb-4">
+              <label class="block font-semibold text-gray-800 mb-1">Properties:</label>
+              <pre class="bg-gray-50 p-2 rounded overflow-x-auto text-sm">{{ selectedLog()!.properties | json }}</pre>
             </div>
           }
           @if (selectedLog()!.correlationId) {
-            <div class="detail-row">
-              <label>Correlation ID:</label>
+            <div class="mb-4">
+              <label class="block font-semibold text-gray-800 mb-1">Correlation ID:</label>
               <span>{{ selectedLog()!.correlationId }}</span>
             </div>
           }

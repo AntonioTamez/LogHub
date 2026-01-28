@@ -1,11 +1,11 @@
-<div class="auth-container">
-  <div class="auth-card">
-    <h1>LogHub</h1>
-    <h2>Create Account</h2>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+    <h1 class="text-center text-[#1a1a2e] mb-2 text-3xl font-bold">LogHub</h1>
+    <h2 class="text-center text-gray-500 mb-8 font-normal text-lg">Create Account</h2>
 
     <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-      <div class="form-group">
-        <label for="name">Name</label>
+      <div class="mb-4">
+        <label for="name" class="block mb-2 text-gray-800 font-medium">Name</label>
         <input
           type="text"
           id="name"
@@ -14,11 +14,12 @@
           required
           maxlength="100"
           placeholder="Your name"
+          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
         />
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
+      <div class="mb-4">
+        <label for="email" class="block mb-2 text-gray-800 font-medium">Email</label>
         <input
           type="email"
           id="email"
@@ -27,11 +28,12 @@
           required
           email
           placeholder="your@email.com"
+          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
         />
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div class="mb-4">
+        <label for="password" class="block mb-2 text-gray-800 font-medium">Password</label>
         <input
           type="password"
           id="password"
@@ -40,20 +42,22 @@
           required
           minlength="6"
           placeholder="At least 6 characters"
+          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
         />
       </div>
 
       @if (error) {
-        <div class="error-message">{{ error }}</div>
+        <div class="bg-red-50 text-red-600 py-3 px-4 rounded mb-4">{{ error }}</div>
       }
 
-      <button type="submit" [disabled]="loading || !registerForm.valid" class="btn-primary">
+      <button type="submit" [disabled]="loading || !registerForm.valid"
+              class="w-full py-3 px-4 bg-[#1a1a2e] text-white border-none rounded text-base cursor-pointer mt-4 hover:bg-[#16213e] disabled:opacity-70 disabled:cursor-not-allowed transition-colors">
         {{ loading ? 'Creating account...' : 'Create Account' }}
       </button>
     </form>
 
-    <p class="auth-link">
-      Already have an account? <a routerLink="/login">Sign in</a>
+    <p class="text-center mt-4 text-gray-500">
+      Already have an account? <a routerLink="/login" class="text-[#1a1a2e] font-medium hover:underline">Sign in</a>
     </p>
   </div>
 </div>
