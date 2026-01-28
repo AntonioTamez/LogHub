@@ -1,0 +1,122 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: loghub_db
+    environment:
+      POSTGRES_DB: loghub
+      POSTGRES_USER: loghub_user
+      POSTGRES_PASSWORD: loghub_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - loghub_postgres_data:/var/lib/postgresql/data
+    networks:
+      - loghub_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loghub_user -d loghub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: loghub_rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: loghub
+      RABBITMQ_DEFAULT_PASS: loghub_pass
+    volumes:
+      - loghub_rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - loghub_network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: loghub_redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - loghub_redis_data:/data
+    networks:
+      - loghub_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: src/LogHub.API/Dockerfile
+    container_name: loghub_api
+    ports:
+      - "5100:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=loghub;Username=loghub_user;Password=loghub_pass
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=loghub
+      - RabbitMQ__Password=loghub_pass
+      - Redis__Configuration=redis:6379
+      - Jwt__Key=LogHubSuperSecretKey2024ForJwtAuthentication!
+      - Jwt__Issuer=LogHub
+      - Jwt__Audience=LogHubDashboard
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - loghub_network
+
+  worker:
+    build:
+      context: .
+      dockerfile: src/LogHub.Worker/Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=loghub;Username=loghub_user;Password=loghub_pass
+      - RabbitMQ__Host=rabbitmq
+      - RabbitMQ__Username=loghub
+      - RabbitMQ__Password=loghub_pass
+      - Redis__Configuration=redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - loghub_network
+    deploy:
+      replicas: 2
+
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    container_name: loghub_dashboard
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - loghub_network
+
+volumes:
+  loghub_postgres_data:
+  loghub_rabbitmq_data:
+  loghub_redis_data:
+
+networks:
+  loghub_network:
+    driver: bridge

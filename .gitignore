@@ -1,0 +1,93 @@
+# .NET
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+.vs/
+*.csproj.user
+*.log
+*.cache
+project.lock.json
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio
+.vs/
+*.rsuser
+*.suo
+*.user
+*.sln.docstates
+*.userprefs
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Angular
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.angular/
+dashboard/.sass-cache/
+dashboard/connect.lock
+dashboard/coverage/
+dashboard/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+dashboard/.env
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# OS
+.DS_Store
+*.pem
+
+# Test results
+TestResults/
+coverage/
+
+# Secrets
+appsettings.Development.json
+appsettings.Production.json
+secrets.json

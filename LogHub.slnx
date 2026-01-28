@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LogHub.API/LogHub.API.csproj" />
+    <Project Path="src/LogHub.Client/LogHub.Client.csproj" />
+    <Project Path="src/LogHub.Core/LogHub.Core.csproj" />
+    <Project Path="src/LogHub.Infrastructure/LogHub.Infrastructure.csproj" />
+    <Project Path="src/LogHub.Worker/LogHub.Worker.csproj" />
+  </Folder>
+</Solution>
