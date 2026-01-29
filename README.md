@@ -8,7 +8,7 @@ Sistema centralizado para agregar, almacenar y visualizar logs de multiples apli
 - **Base de datos**: PostgreSQL 16
 - **Cache/Buffer**: Redis 7
 - **Cola de mensajes**: RabbitMQ 3.12
-- **Frontend**: Angular 17 con Material Design
+- **Frontend**: Angular 20 con Material Design / Tailwind
 - **Graficas**: Chart.js
 - **Tiempo real**: SignalR
 
@@ -38,7 +38,7 @@ Sistema centralizado para agregar, almacenar y visualizar logs de multiples apli
 
 - .NET 8 SDK
 - Node.js 20+ y npm
-- Angular CLI 17
+- Angular CLI 20
 - Docker Desktop
 
 ## Inicio Rapido
