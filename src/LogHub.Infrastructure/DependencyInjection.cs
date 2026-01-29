@@ -36,6 +36,9 @@ public static class DependencyInjection
         // Cache service
         services.AddScoped<IRedisCacheService, RedisCacheService>();
 
+        // Database seeder
+        services.AddScoped<DbSeeder>();
+
         return services;
     }
 }

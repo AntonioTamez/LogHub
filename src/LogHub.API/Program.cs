@@ -138,12 +138,18 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Apply migrations automatically in development
+// Apply migrations and seed data in development
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
-    var dbContext = scope.ServiceProvider.GetRequiredService<LogHubDbContext>();
+    var services = scope.ServiceProvider;
+
+    var dbContext = services.GetRequiredService<LogHubDbContext>();
     await dbContext.Database.MigrateAsync();
+
+    // Seed the database
+    var seeder = services.GetRequiredService<DbSeeder>();
+    await seeder.SeedAsync();
 }
 
 // Configure the HTTP request pipeline
