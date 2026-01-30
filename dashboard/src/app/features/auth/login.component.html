@@ -1,49 +1,125 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
-  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-    <h1 class="text-center text-[#1a1a2e] mb-2 text-3xl font-bold">LogHub</h1>
-    <h2 class="text-center text-gray-500 mb-8 font-normal text-lg">Sign In</h2>
+<div class="min-h-screen flex items-center justify-center bg-cyber-bg grid-bg noise-overlay relative overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-neon-green/5 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-neon-cyan/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-neon-green/5 rounded-full"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-neon-green/5 rounded-full"></div>
+  </div>
 
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-      <div class="mb-4">
-        <label for="email" class="block mb-2 text-gray-800 font-medium">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          [(ngModel)]="email"
-          required
-          email
-          placeholder="your@email.com"
-          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
-        />
+  <div class="relative z-10 w-full max-w-md px-6">
+    <!-- Terminal Window -->
+    <div class="cyber-card animate-slide-up">
+      <!-- Terminal Header -->
+      <div class="flex items-center gap-2 px-4 py-3 border-b border-cyber-border bg-cyber-surface/50">
+        <div class="flex gap-1.5">
+          <div class="w-3 h-3 rounded-full bg-neon-red/80"></div>
+          <div class="w-3 h-3 rounded-full bg-neon-yellow/80"></div>
+          <div class="w-3 h-3 rounded-full bg-neon-green/80"></div>
+        </div>
+        <span class="ml-3 text-xs font-mono text-terminal-dim">loghub@terminal:~$ auth --login</span>
       </div>
 
-      <div class="mb-4">
-        <label for="password" class="block mb-2 text-gray-800 font-medium">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          required
-          minlength="6"
-          placeholder="••••••••"
-          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
-        />
+      <!-- Terminal Body -->
+      <div class="p-8">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-neon-green/10 border border-neon-green/30 mb-4">
+            <svg class="w-8 h-8 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+          </div>
+          <h1 class="font-display text-3xl font-bold text-neon-green tracking-wider mb-2">LOGHUB</h1>
+          <p class="text-terminal-dim text-sm font-mono">// SYSTEM ACCESS REQUIRED</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="space-y-5">
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label for="email" class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
+              <span class="text-neon-cyan">$</span> email
+            </label>
+            <div class="relative">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                placeholder="user@domain.com"
+                class="cyber-input pl-10"
+              />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="space-y-2">
+            <label for="password" class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
+              <span class="text-neon-cyan">$</span> password
+            </label>
+            <div class="relative">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                required
+                minlength="6"
+                placeholder="••••••••••••"
+                class="cyber-input pl-10"
+              />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Error Message -->
+          @if (error) {
+            <div class="flex items-center gap-3 p-4 rounded-lg bg-neon-red/10 border border-neon-red/30 animate-slide-up">
+              <svg class="w-5 h-5 text-neon-red shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-neon-red text-sm font-mono">{{ error }}</span>
+            </div>
+          }
+
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="loading || !loginForm.valid"
+                  class="btn-neon-filled w-full mt-6 flex items-center justify-center gap-3">
+            @if (loading) {
+              <div class="w-4 h-4 border-2 border-neon-green/30 border-t-neon-green rounded-full animate-spin"></div>
+              <span>AUTHENTICATING...</span>
+            } @else {
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              <span>INITIALIZE SESSION</span>
+            }
+          </button>
+        </form>
+
+        <!-- Register Link -->
+        <div class="mt-8 pt-6 border-t border-cyber-border text-center">
+          <p class="text-terminal-dim text-sm font-mono">
+            <span class="text-terminal-comment">// No credentials?</span>
+            <a routerLink="/register" class="ml-2 text-neon-cyan hover:text-neon-green transition-colors">
+              CREATE_ACCOUNT
+            </a>
+          </p>
+        </div>
       </div>
+    </div>
 
-      @if (error) {
-        <div class="bg-red-50 text-red-600 py-3 px-4 rounded mb-4">{{ error }}</div>
-      }
-
-      <button type="submit" [disabled]="loading || !loginForm.valid"
-              class="w-full py-3 px-4 bg-[#1a1a2e] text-white border-none rounded text-base cursor-pointer mt-4 hover:bg-[#16213e] disabled:opacity-70 disabled:cursor-not-allowed transition-colors">
-        {{ loading ? 'Signing in...' : 'Sign In' }}
-      </button>
-    </form>
-
-    <p class="text-center mt-4 text-gray-500">
-      Don't have an account? <a routerLink="/register" class="text-[#1a1a2e] font-medium hover:underline">Sign up</a>
-    </p>
+    <!-- Footer -->
+    <div class="mt-6 text-center">
+      <p class="text-terminal-comment text-xs font-mono">
+        LOGHUB TERMINAL v2.0.0 // SECURE CONNECTION ESTABLISHED
+      </p>
+    </div>
   </div>
 </div>

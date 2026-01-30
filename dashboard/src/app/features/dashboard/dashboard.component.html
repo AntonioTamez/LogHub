@@ -1,90 +1,214 @@
-<div class="p-6">
-  <h1 class="mb-6 text-[#1a1a2e] text-2xl font-bold">Dashboard</h1>
-
-  <!-- Summary Cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <div class="bg-white p-6 rounded-lg shadow text-center">
-      <div class="text-4xl font-bold text-[#1a1a2e]">{{ summary()?.totalApplications || 0 }}</div>
-      <div class="text-gray-500 mt-2">Applications</div>
+<div class="p-6 min-h-screen">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="font-display text-2xl font-bold text-neon-green tracking-wider mb-1">DASHBOARD</h1>
+      <p class="text-terminal-dim text-sm font-mono">// SYSTEM OVERVIEW</p>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow text-center">
-      <div class="text-4xl font-bold text-[#1a1a2e]">{{ summary()?.logsLast24Hours || 0 }}</div>
-      <div class="text-gray-500 mt-2">Logs (24h)</div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow text-center">
-      <div class="text-4xl font-bold text-amber-500">{{ summary()?.warningsLast24Hours || 0 }}</div>
-      <div class="text-gray-500 mt-2">Warnings (24h)</div>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow text-center">
-      <div class="text-4xl font-bold text-red-500">{{ summary()?.errorsLast24Hours || 0 }}</div>
-      <div class="text-gray-500 mt-2">Errors (24h)</div>
+    <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyber-surface border border-cyber-border">
+      <div class="w-2 h-2 rounded-full animate-pulse"
+           [class]="signalRService.connectionState() === 'Connected' ? 'bg-neon-green' : 'bg-neon-red'"></div>
+      <span class="text-xs font-mono text-terminal-dim">
+        {{ signalRService.connectionState() === 'Connected' ? 'LIVE' : 'OFFLINE' }}
+      </span>
     </div>
   </div>
 
-  <!-- Charts -->
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- Applications Card -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.1s">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center">
+          <svg class="w-6 h-6 text-neon-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+        <span class="text-xs font-mono text-terminal-comment">APPS</span>
+      </div>
+      <div class="font-display text-4xl font-bold text-neon-cyan mb-1">{{ summary()?.totalApplications || 0 }}</div>
+      <div class="text-terminal-dim text-sm font-mono">Applications</div>
+    </div>
+
+    <!-- Logs 24h Card -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.15s">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
+          <svg class="w-6 h-6 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <span class="text-xs font-mono text-terminal-comment">24H</span>
+      </div>
+      <div class="font-display text-4xl font-bold text-neon-green mb-1">{{ summary()?.logsLast24Hours || 0 }}</div>
+      <div class="text-terminal-dim text-sm font-mono">Total Logs</div>
+    </div>
+
+    <!-- Warnings Card -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.2s">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 rounded-lg bg-neon-yellow/10 border border-neon-yellow/30 flex items-center justify-center">
+          <svg class="w-6 h-6 text-neon-yellow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <span class="text-xs font-mono text-terminal-comment">WARN</span>
+      </div>
+      <div class="font-display text-4xl font-bold text-neon-yellow mb-1">{{ summary()?.warningsLast24Hours || 0 }}</div>
+      <div class="text-terminal-dim text-sm font-mono">Warnings</div>
+    </div>
+
+    <!-- Errors Card -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.25s">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 rounded-lg bg-neon-red/10 border border-neon-red/30 flex items-center justify-center">
+          <svg class="w-6 h-6 text-neon-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-xs font-mono text-terminal-comment">ERR</span>
+      </div>
+      <div class="font-display text-4xl font-bold text-neon-red mb-1">{{ summary()?.errorsLast24Hours || 0 }}</div>
+      <div class="text-terminal-dim text-sm font-mono">Errors</div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs by Level</h3>
+    <!-- Bar Chart -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.3s">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
+          <svg class="w-4 h-4 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-terminal-text font-medium text-sm">Logs by Level</h3>
+          <p class="text-terminal-comment text-xs font-mono">// DISTRIBUTION</p>
+        </div>
+      </div>
       @if (barChartData()) {
         <canvas baseChart
           [type]="'bar'"
           [data]="barChartData()!"
           [options]="barChartOptions">
         </canvas>
+      } @else {
+        <div class="h-48 flex items-center justify-center text-terminal-dim font-mono text-sm">
+          Loading data...
+        </div>
       }
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs by Application</h3>
+    <!-- Pie Chart -->
+    <div class="cyber-card p-6 animate-slide-up" style="animation-delay: 0.35s">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-8 h-8 rounded bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center">
+          <svg class="w-4 h-4 text-neon-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-terminal-text font-medium text-sm">Logs by Application</h3>
+          <p class="text-terminal-comment text-xs font-mono">// APP BREAKDOWN</p>
+        </div>
+      </div>
       @if (pieChartData()) {
         <canvas baseChart
           [type]="'pie'"
           [data]="pieChartData()!"
           [options]="pieChartOptions">
         </canvas>
+      } @else {
+        <div class="h-48 flex items-center justify-center text-terminal-dim font-mono text-sm">
+          Loading data...
+        </div>
       }
     </div>
   </div>
 
-  <div class="bg-white p-6 rounded-lg shadow">
-    <h3 class="m-0 mb-4 text-gray-800 font-semibold">Logs Over Time</h3>
+  <!-- Line Chart -->
+  <div class="cyber-card p-6 mb-4 animate-slide-up" style="animation-delay: 0.4s">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-8 h-8 rounded bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center">
+        <svg class="w-4 h-4 text-neon-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="text-terminal-text font-medium text-sm">Logs Over Time</h3>
+        <p class="text-terminal-comment text-xs font-mono">// TIMELINE</p>
+      </div>
+    </div>
     @if (lineChartData()) {
       <canvas baseChart
         [type]="'line'"
         [data]="lineChartData()!"
         [options]="lineChartOptions">
       </canvas>
+    } @else {
+      <div class="h-48 flex items-center justify-center text-terminal-dim font-mono text-sm">
+        Loading data...
+      </div>
     }
   </div>
 
   <!-- Real-time Logs -->
-  <div class="bg-white p-6 rounded-lg shadow mt-4">
-    <h3 class="m-0 mb-4 flex items-center gap-2 font-semibold">
-      Real-time Logs
-      <span class="text-xs py-1 px-2 rounded text-white"
-            [class]="signalRService.connectionState() === 'Connected' ? 'bg-green-600' : 'bg-red-500'">
-        {{ signalRService.connectionState() === 'Connected' ? 'Connected' : 'Disconnected' }}
-      </span>
-    </h3>
-    <div class="max-h-72 overflow-y-auto">
+  <div class="cyber-card animate-slide-up" style="animation-delay: 0.45s">
+    <!-- Header -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-cyber-border">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
+          <svg class="w-4 h-4 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-terminal-text font-medium text-sm">Real-time Logs</h3>
+          <p class="text-terminal-comment text-xs font-mono">// LIVE STREAM</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded border"
+           [class]="signalRService.connectionState() === 'Connected'
+             ? 'bg-neon-green/10 border-neon-green/30 text-neon-green'
+             : 'bg-neon-red/10 border-neon-red/30 text-neon-red'">
+        <div class="w-2 h-2 rounded-full animate-pulse"
+             [class]="signalRService.connectionState() === 'Connected' ? 'bg-neon-green' : 'bg-neon-red'"></div>
+        <span class="text-xs font-mono">
+          {{ signalRService.connectionState() === 'Connected' ? 'CONNECTED' : 'DISCONNECTED' }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Log List -->
+    <div class="max-h-80 overflow-y-auto">
       @for (log of signalRService.recentLogs().slice(0, 10); track log.id) {
-        <div class="flex items-center gap-4 p-2 border-b border-gray-100">
-          <span class="py-1 px-2 rounded text-xs font-medium min-w-[80px] text-center"
+        <div class="flex items-center gap-4 px-6 py-3 border-b border-cyber-border/50 hover:bg-cyber-surface/50 transition-colors">
+          <span class="py-1 px-3 rounded text-xs font-mono font-medium min-w-[80px] text-center"
                 [class]="{
-                  'bg-gray-200 text-gray-600': log.level === 0 || log.level === 1,
-                  'bg-green-100 text-green-800': log.level === 2,
-                  'bg-amber-100 text-amber-800': log.level === 3,
-                  'bg-red-100 text-red-800': log.level === 4,
-                  'bg-red-800 text-white': log.level === 5
+                  'badge-trace': log.level === 0,
+                  'badge-debug': log.level === 1,
+                  'badge-info': log.level === 2,
+                  'badge-warning': log.level === 3,
+                  'badge-error': log.level === 4,
+                  'badge-critical': log.level === 5
                 }">
             {{ getLogLevelName(log.level) }}
           </span>
-          <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{{ log.message }}</span>
-          <span class="text-gray-500 text-sm">{{ log.timestamp | date:'HH:mm:ss' }}</span>
+          <span class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-terminal-text text-sm font-mono">{{ log.message }}</span>
+          <span class="text-terminal-comment text-xs font-mono">{{ log.timestamp | date:'HH:mm:ss' }}</span>
         </div>
       }
       @if (signalRService.recentLogs().length === 0) {
-        <div class="text-center text-gray-500 py-8">Waiting for logs...</div>
+        <div class="flex flex-col items-center justify-center py-12 text-terminal-dim">
+          <svg class="w-12 h-12 mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <p class="font-mono text-sm">Waiting for logs...</p>
+          <p class="font-mono text-xs text-terminal-comment mt-1">// Real-time events will appear here</p>
+        </div>
       }
     </div>
   </div>

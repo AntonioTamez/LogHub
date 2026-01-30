@@ -1,63 +1,148 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1a2e] to-[#16213e]">
-  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-    <h1 class="text-center text-[#1a1a2e] mb-2 text-3xl font-bold">LogHub</h1>
-    <h2 class="text-center text-gray-500 mb-8 font-normal text-lg">Create Account</h2>
+<div class="min-h-screen flex items-center justify-center bg-cyber-bg grid-bg noise-overlay relative overflow-hidden">
+  <!-- Animated Background Elements -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/3 -right-20 w-96 h-96 bg-neon-cyan/5 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/3 -left-20 w-96 h-96 bg-neon-green/5 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-neon-cyan/5 rounded-full"></div>
+  </div>
 
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-      <div class="mb-4">
-        <label for="name" class="block mb-2 text-gray-800 font-medium">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          [(ngModel)]="name"
-          required
-          maxlength="100"
-          placeholder="Your name"
-          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
-        />
+  <div class="relative z-10 w-full max-w-md px-6">
+    <!-- Terminal Window -->
+    <div class="cyber-card animate-slide-up">
+      <!-- Terminal Header -->
+      <div class="flex items-center gap-2 px-4 py-3 border-b border-cyber-border bg-cyber-surface/50">
+        <div class="flex gap-1.5">
+          <div class="w-3 h-3 rounded-full bg-neon-red/80"></div>
+          <div class="w-3 h-3 rounded-full bg-neon-yellow/80"></div>
+          <div class="w-3 h-3 rounded-full bg-neon-green/80"></div>
+        </div>
+        <span class="ml-3 text-xs font-mono text-terminal-dim">loghub@terminal:~$ user --create</span>
       </div>
 
-      <div class="mb-4">
-        <label for="email" class="block mb-2 text-gray-800 font-medium">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          [(ngModel)]="email"
-          required
-          email
-          placeholder="your@email.com"
-          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
-        />
+      <!-- Terminal Body -->
+      <div class="p-8">
+        <!-- Logo -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-neon-cyan/10 border border-neon-cyan/30 mb-4">
+            <svg class="w-8 h-8 text-neon-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          </div>
+          <h1 class="font-display text-3xl font-bold text-neon-cyan tracking-wider mb-2">NEW_USER</h1>
+          <p class="text-terminal-dim text-sm font-mono">// INITIALIZE ACCOUNT</p>
+        </div>
+
+        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="space-y-5">
+          <!-- Name Field -->
+          <div class="space-y-2">
+            <label for="name" class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
+              <span class="text-neon-cyan">$</span> username
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                [(ngModel)]="name"
+                required
+                maxlength="100"
+                placeholder="agent_name"
+                class="cyber-input pl-10"
+              />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="space-y-2">
+            <label for="email" class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
+              <span class="text-neon-cyan">$</span> email
+            </label>
+            <div class="relative">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                placeholder="user@domain.com"
+                class="cyber-input pl-10"
+              />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="space-y-2">
+            <label for="password" class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
+              <span class="text-neon-cyan">$</span> password
+            </label>
+            <div class="relative">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                required
+                minlength="6"
+                placeholder="••••••••••••"
+                class="cyber-input pl-10"
+              />
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <p class="text-xs text-terminal-comment font-mono">// min 6 characters</p>
+          </div>
+
+          <!-- Error Message -->
+          @if (error) {
+            <div class="flex items-center gap-3 p-4 rounded-lg bg-neon-red/10 border border-neon-red/30 animate-slide-up">
+              <svg class="w-5 h-5 text-neon-red shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-neon-red text-sm font-mono">{{ error }}</span>
+            </div>
+          }
+
+          <!-- Submit Button -->
+          <button type="submit" [disabled]="loading || !registerForm.valid"
+                  class="btn-neon-filled w-full mt-6 flex items-center justify-center gap-3"
+                  style="border-color: #00d4ff; color: #00d4ff;">
+            @if (loading) {
+              <div class="w-4 h-4 border-2 border-neon-cyan/30 border-t-neon-cyan rounded-full animate-spin"></div>
+              <span>CREATING...</span>
+            } @else {
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+              </svg>
+              <span>CREATE_ACCOUNT</span>
+            }
+          </button>
+        </form>
+
+        <!-- Login Link -->
+        <div class="mt-8 pt-6 border-t border-cyber-border text-center">
+          <p class="text-terminal-dim text-sm font-mono">
+            <span class="text-terminal-comment">// Already registered?</span>
+            <a routerLink="/login" class="ml-2 text-neon-green hover:text-neon-cyan transition-colors">
+              LOGIN
+            </a>
+          </p>
+        </div>
       </div>
+    </div>
 
-      <div class="mb-4">
-        <label for="password" class="block mb-2 text-gray-800 font-medium">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          [(ngModel)]="password"
-          required
-          minlength="6"
-          placeholder="At least 6 characters"
-          class="w-full py-3 px-4 border border-gray-300 rounded text-base box-border focus:outline-none focus:border-[#1a1a2e]"
-        />
-      </div>
-
-      @if (error) {
-        <div class="bg-red-50 text-red-600 py-3 px-4 rounded mb-4">{{ error }}</div>
-      }
-
-      <button type="submit" [disabled]="loading || !registerForm.valid"
-              class="w-full py-3 px-4 bg-[#1a1a2e] text-white border-none rounded text-base cursor-pointer mt-4 hover:bg-[#16213e] disabled:opacity-70 disabled:cursor-not-allowed transition-colors">
-        {{ loading ? 'Creating account...' : 'Create Account' }}
-      </button>
-    </form>
-
-    <p class="text-center mt-4 text-gray-500">
-      Already have an account? <a routerLink="/login" class="text-[#1a1a2e] font-medium hover:underline">Sign in</a>
-    </p>
+    <!-- Footer -->
+    <div class="mt-6 text-center">
+      <p class="text-terminal-comment text-xs font-mono">
+        LOGHUB TERMINAL v2.0.0 // SECURE REGISTRATION
+      </p>
+    </div>
   </div>
 </div>
