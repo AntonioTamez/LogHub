@@ -1,18 +1,18 @@
 @if (authService.isAuthenticated()) {
-  <div class="flex min-h-screen bg-cyber-bg grid-bg noise-overlay">
+  <div class="flex min-h-screen bg-theme-bg grid-bg noise-overlay">
     <!-- Sidebar -->
-    <nav class="w-72 bg-cyber-surface/80 backdrop-blur-xl border-r border-cyber-border flex flex-col fixed h-screen z-40">
+    <nav class="w-72 bg-theme-surface/80 backdrop-blur-xl border-r border-theme-border flex flex-col fixed h-screen z-40">
       <!-- Logo -->
-      <div class="p-6 border-b border-cyber-border">
+      <div class="p-6 border-b border-theme-border">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
-            <svg class="w-6 h-6 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-10 h-10 rounded-lg bg-theme-primary/10 border border-theme-primary/30 flex items-center justify-center">
+            <svg class="w-6 h-6 text-theme-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
             </svg>
           </div>
           <div>
-            <h1 class="m-0 text-xl font-display font-bold text-neon-green tracking-wider">LOGHUB</h1>
-            <span class="text-xs text-terminal-dim font-mono">v2.0.0 // TERMINAL</span>
+            <h1 class="m-0 text-xl font-display font-bold text-theme-primary tracking-wider">LOGHUB</h1>
+            <span class="text-xs text-theme-text-dim font-mono">v2.0.0 // TERMINAL</span>
           </div>
         </div>
       </div>
@@ -21,56 +21,64 @@
       <ul class="list-none py-6 px-3 m-0 flex-1 space-y-1">
         <li class="animate-slide-in" style="animation-delay: 0.1s">
           <a routerLink="/dashboard" routerLinkActive="active-nav"
-             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-terminal-dim no-underline transition-all duration-300 hover:bg-neon-green/5 hover:text-neon-green border border-transparent hover:border-neon-green/20">
-            <div class="w-8 h-8 rounded bg-cyber-card border border-cyber-border flex items-center justify-center group-hover:border-neon-green/30 transition-all">
+             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-theme-text-dim no-underline transition-all duration-300 hover:bg-theme-primary/5 hover:text-theme-primary border border-transparent hover:border-theme-primary/20">
+            <div class="w-8 h-8 rounded bg-theme-card border border-theme-border flex items-center justify-center group-hover:border-theme-primary/30 transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
               </svg>
             </div>
             <span class="font-medium text-sm tracking-wide">Dashboard</span>
-            <span class="ml-auto text-xs text-terminal-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">01</span>
+            <span class="ml-auto text-xs text-theme-text-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">01</span>
           </a>
         </li>
         <li class="animate-slide-in" style="animation-delay: 0.15s">
           <a routerLink="/logs" routerLinkActive="active-nav"
-             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-terminal-dim no-underline transition-all duration-300 hover:bg-neon-green/5 hover:text-neon-green border border-transparent hover:border-neon-green/20">
-            <div class="w-8 h-8 rounded bg-cyber-card border border-cyber-border flex items-center justify-center group-hover:border-neon-green/30 transition-all">
+             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-theme-text-dim no-underline transition-all duration-300 hover:bg-theme-primary/5 hover:text-theme-primary border border-transparent hover:border-theme-primary/20">
+            <div class="w-8 h-8 rounded bg-theme-card border border-theme-border flex items-center justify-center group-hover:border-theme-primary/30 transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <span class="font-medium text-sm tracking-wide">Log Stream</span>
-            <span class="ml-auto text-xs text-terminal-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">02</span>
+            <span class="ml-auto text-xs text-theme-text-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">02</span>
           </a>
         </li>
         <li class="animate-slide-in" style="animation-delay: 0.2s">
           <a routerLink="/applications" routerLinkActive="active-nav"
-             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-terminal-dim no-underline transition-all duration-300 hover:bg-neon-green/5 hover:text-neon-green border border-transparent hover:border-neon-green/20">
-            <div class="w-8 h-8 rounded bg-cyber-card border border-cyber-border flex items-center justify-center group-hover:border-neon-green/30 transition-all">
+             class="group flex items-center gap-4 py-3 px-4 rounded-lg text-theme-text-dim no-underline transition-all duration-300 hover:bg-theme-primary/5 hover:text-theme-primary border border-transparent hover:border-theme-primary/20">
+            <div class="w-8 h-8 rounded bg-theme-card border border-theme-border flex items-center justify-center group-hover:border-theme-primary/30 transition-all">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
             <span class="font-medium text-sm tracking-wide">Applications</span>
-            <span class="ml-auto text-xs text-terminal-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">03</span>
+            <span class="ml-auto text-xs text-theme-text-comment font-mono opacity-0 group-hover:opacity-100 transition-opacity">03</span>
           </a>
         </li>
       </ul>
 
+      <!-- Theme Selector -->
+      <div class="p-4 border-t border-theme-border">
+        <div class="mb-3">
+          <span class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">// THEME</span>
+        </div>
+        <app-theme-selector></app-theme-selector>
+      </div>
+
       <!-- User Section -->
-      <div class="p-4 border-t border-cyber-border bg-cyber-card/50">
+      <div class="p-4 border-t border-theme-border bg-theme-card/50">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center">
-            <span class="text-neon-cyan font-display font-bold text-sm">{{ authService.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
+          <div class="w-10 h-10 rounded-lg bg-theme-secondary/10 border border-theme-secondary/30 flex items-center justify-center">
+            <span class="text-theme-secondary font-display font-bold text-sm">{{ authService.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="text-terminal-text font-medium text-sm truncate">{{ authService.currentUser()?.name }}</div>
-            <div class="text-terminal-dim text-xs font-mono truncate">{{ authService.currentUser()?.email }}</div>
+            <div class="text-theme-text font-medium text-sm truncate">{{ authService.currentUser()?.name }}</div>
+            <div class="text-theme-text-dim text-xs font-mono truncate">{{ authService.currentUser()?.email }}</div>
           </div>
-          <div class="w-2 h-2 rounded-full bg-neon-green animate-pulse"></div>
+          <div class="w-2 h-2 rounded-full bg-theme-success animate-pulse"></div>
         </div>
         <button (click)="authService.logout()"
-                class="w-full py-2.5 px-4 bg-cyber-surface border border-cyber-border rounded-lg text-terminal-dim text-sm font-mono cursor-pointer transition-all duration-300 hover:border-neon-red/50 hover:text-neon-red hover:bg-neon-red/5 flex items-center justify-center gap-2">
+                class="w-full py-2.5 px-4 bg-theme-surface border border-theme-border rounded-lg text-theme-text-dim text-sm font-mono cursor-pointer transition-all duration-300 hover:border-theme-error/50 hover:text-theme-error hover:bg-theme-error/5 flex items-center justify-center gap-2">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
@@ -90,18 +98,18 @@
 
 <style>
   .active-nav {
-    background: rgba(0, 255, 149, 0.08) !important;
-    border-color: rgba(0, 255, 149, 0.3) !important;
-    color: #00ff95 !important;
+    background: color-mix(in srgb, var(--color-primary) 8%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-primary) 30%, transparent) !important;
+    color: var(--color-primary) !important;
   }
 
   .active-nav div {
-    border-color: rgba(0, 255, 149, 0.5) !important;
-    box-shadow: 0 0 10px rgba(0, 255, 149, 0.2);
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent) !important;
+    box-shadow: 0 0 10px color-mix(in srgb, var(--color-primary) 20%, transparent);
   }
 
   .active-nav span:last-child {
     opacity: 1 !important;
-    color: #00ff95 !important;
+    color: var(--color-primary) !important;
   }
 </style>

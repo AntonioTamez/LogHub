@@ -1,0 +1,70 @@
+<div class="relative">
+  <!-- Trigger Button -->
+  <button (click)="toggleDropdown()"
+          class="w-full py-2.5 px-4 bg-theme-surface border border-theme-border rounded-lg text-theme-text-dim text-sm font-mono cursor-pointer transition-all duration-300 hover:border-theme-primary/50 hover:text-theme-primary flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2">
+      <div class="w-4 h-4 rounded-full border-2" [style.border-color]="themeService.currentTheme().colors.primary"
+           [style.background]="themeService.currentTheme().colors.primary + '30'"></div>
+      <span>{{ themeService.currentTheme().name }}</span>
+    </div>
+    <svg class="w-4 h-4 transition-transform" [class.rotate-180]="isOpen()" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <!-- Dropdown -->
+  @if (isOpen()) {
+    <!-- Backdrop -->
+    <div class="fixed inset-0 z-40" (click)="closeDropdown()"></div>
+
+    <!-- Dropdown Menu -->
+    <div class="absolute bottom-full left-0 right-0 mb-2 bg-theme-card border border-theme-border rounded-lg shadow-xl z-50 overflow-hidden animate-slide-up max-h-80 overflow-y-auto">
+      <div class="p-2 border-b border-theme-border bg-theme-surface/50">
+        <span class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">// SELECT THEME</span>
+      </div>
+      <div class="p-2 space-y-1">
+        @for (theme of themeService.availableThemes; track theme.id) {
+          <button (click)="selectTheme(theme)"
+                  class="w-full p-3 rounded-lg text-left transition-all duration-200 flex items-center gap-3 group"
+                  [class]="themeService.currentTheme().id === theme.id
+                    ? 'bg-theme-primary/10 border border-theme-primary/30'
+                    : 'hover:bg-theme-surface border border-transparent hover:border-theme-border'">
+            <!-- Color Preview -->
+            <div class="flex -space-x-1">
+              <div class="w-5 h-5 rounded-full border-2 border-theme-card" [style.background]="theme.colors.primary"></div>
+              <div class="w-5 h-5 rounded-full border-2 border-theme-card" [style.background]="theme.colors.secondary"></div>
+              <div class="w-5 h-5 rounded-full border-2 border-theme-card" [style.background]="theme.colors.accent"></div>
+            </div>
+
+            <!-- Theme Info -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-medium" [style.color]="themeService.currentTheme().id === theme.id ? 'var(--color-primary)' : 'var(--color-text)'">
+                  {{ theme.name }}
+                </span>
+                @if (themeService.currentTheme().id === theme.id) {
+                  <svg class="w-4 h-4 text-theme-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                }
+              </div>
+              <p class="text-xs text-theme-text-comment truncate">{{ theme.description }}</p>
+            </div>
+
+            <!-- Preview Card -->
+            <div class="w-16 h-10 rounded overflow-hidden border shrink-0 hidden sm:block" [style.border-color]="theme.colors.border">
+              <div class="h-full" [style.background]="theme.colors.background">
+                <div class="h-2 m-1 rounded" [style.background]="theme.colors.surface"></div>
+                <div class="flex gap-0.5 px-1">
+                  <div class="h-1 w-2 rounded" [style.background]="theme.colors.primary"></div>
+                  <div class="h-1 w-3 rounded" [style.background]="theme.colors.secondary"></div>
+                  <div class="h-1 w-2 rounded" [style.background]="theme.colors.accent"></div>
+                </div>
+              </div>
+            </div>
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

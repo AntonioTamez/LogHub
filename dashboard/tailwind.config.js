@@ -6,26 +6,44 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Theme-aware colors using CSS variables
+        theme: {
+          primary: 'var(--color-primary)',
+          secondary: 'var(--color-secondary)',
+          accent: 'var(--color-accent)',
+          bg: 'var(--color-background)',
+          surface: 'var(--color-surface)',
+          card: 'var(--color-card)',
+          border: 'var(--color-border)',
+          text: 'var(--color-text)',
+          'text-dim': 'var(--color-text-dim)',
+          'text-comment': 'var(--color-text-comment)',
+          success: 'var(--color-success)',
+          warning: 'var(--color-warning)',
+          error: 'var(--color-error)',
+          info: 'var(--color-info)',
+        },
+        // Legacy colors (kept for backwards compatibility during transition)
         cyber: {
-          bg: '#0a0a0f',
-          surface: '#12121a',
-          card: '#1a1a24',
-          border: '#2a2a3a',
-          'border-glow': '#00ff9580',
+          bg: 'var(--color-background)',
+          surface: 'var(--color-surface)',
+          card: 'var(--color-card)',
+          border: 'var(--color-border)',
+          'border-glow': 'var(--color-primary)',
         },
         neon: {
-          green: '#00ff95',
-          cyan: '#00d4ff',
-          pink: '#ff00aa',
+          green: 'var(--color-primary)',
+          cyan: 'var(--color-secondary)',
+          pink: 'var(--color-accent)',
           orange: '#ff6b35',
-          yellow: '#ffd93d',
-          red: '#ff3366',
-          purple: '#b84dff',
+          yellow: 'var(--color-warning)',
+          red: 'var(--color-error)',
+          purple: 'var(--color-accent)',
         },
         terminal: {
-          text: '#e0e0e0',
-          dim: '#6a6a7a',
-          comment: '#5a5a6a',
+          text: 'var(--color-text)',
+          dim: 'var(--color-text-dim)',
+          comment: 'var(--color-text-comment)',
         }
       },
       fontFamily: {
@@ -45,8 +63,8 @@ module.exports = {
       },
       keyframes: {
         'pulse-glow': {
-          '0%, 100%': { boxShadow: '0 0 5px var(--glow-color, #00ff95), 0 0 10px var(--glow-color, #00ff95)' },
-          '50%': { boxShadow: '0 0 10px var(--glow-color, #00ff95), 0 0 20px var(--glow-color, #00ff95), 0 0 30px var(--glow-color, #00ff95)' },
+          '0%, 100%': { boxShadow: '0 0 5px var(--color-primary), 0 0 10px var(--color-primary)' },
+          '50%': { boxShadow: '0 0 10px var(--color-primary), 0 0 20px var(--color-primary), 0 0 30px var(--color-primary)' },
         },
         'scan': {
           '0%': { transform: 'translateY(-100%)' },
@@ -82,13 +100,13 @@ module.exports = {
         },
       },
       backgroundImage: {
-        'grid-pattern': 'linear-gradient(rgba(0, 255, 149, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 149, 0.03) 1px, transparent 1px)',
+        'grid-pattern': 'linear-gradient(var(--color-primary-10) 1px, transparent 1px), linear-gradient(90deg, var(--color-primary-10) 1px, transparent 1px)',
         'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
       },
       boxShadow: {
-        'neon': '0 0 5px var(--tw-shadow-color), 0 0 20px var(--tw-shadow-color)',
-        'neon-lg': '0 0 10px var(--tw-shadow-color), 0 0 40px var(--tw-shadow-color)',
-        'inner-glow': 'inset 0 0 20px rgba(0, 255, 149, 0.1)',
+        'neon': '0 0 5px var(--color-primary), 0 0 20px var(--color-primary)',
+        'neon-lg': '0 0 10px var(--color-primary), 0 0 40px var(--color-primary)',
+        'inner-glow': 'inset 0 0 20px color-mix(in srgb, var(--color-primary) 10%, transparent)',
       },
     },
   },

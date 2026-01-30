@@ -2,8 +2,8 @@
   <!-- Header -->
   <div class="flex items-center justify-between mb-8">
     <div>
-      <h1 class="font-display text-2xl font-bold text-neon-green tracking-wider mb-1">APPLICATIONS</h1>
-      <p class="text-terminal-dim text-sm font-mono">// MANAGE YOUR APPS</p>
+      <h1 class="font-display text-2xl font-bold text-theme-primary tracking-wider mb-1">APPLICATIONS</h1>
+      <p class="text-theme-text-dim text-sm font-mono">// MANAGE YOUR APPS</p>
     </div>
     <button (click)="showCreateModal.set(true)" class="btn-neon-filled flex items-center gap-2">
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -18,22 +18,22 @@
     @for (app of applications(); track app.id; let i = $index) {
       <div class="cyber-card overflow-hidden animate-slide-up" [style.animation-delay]="(i * 0.05) + 's'" [class.opacity-60]="!app.isActive">
         <!-- Card Header -->
-        <div class="px-5 py-4 border-b border-cyber-border bg-cyber-surface/30">
+        <div class="px-5 py-4 border-b border-theme-border bg-theme-surface/30">
           <div class="flex justify-between items-start gap-3">
             <div class="flex items-center gap-3 min-w-0">
               <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                   [class]="app.isActive ? 'bg-neon-green/10 border border-neon-green/30' : 'bg-cyber-surface border border-cyber-border'">
-                <svg class="w-5 h-5" [class]="app.isActive ? 'text-neon-green' : 'text-terminal-dim'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   [class]="app.isActive ? 'bg-theme-success/10 border border-theme-success/30' : 'bg-theme-surface border border-theme-border'">
+                <svg class="w-5 h-5" [class]="app.isActive ? 'text-theme-success' : 'text-theme-text-dim'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
               <div class="min-w-0">
-                <h3 class="text-terminal-text font-medium text-sm truncate">{{ app.name }}</h3>
-                <p class="text-terminal-comment text-xs font-mono">{{ app.createdAt | date:'short' }}</p>
+                <h3 class="text-theme-text font-medium text-sm truncate">{{ app.name }}</h3>
+                <p class="text-theme-text-comment text-xs font-mono">{{ app.createdAt | date:'short' }}</p>
               </div>
             </div>
             <span class="py-1 px-2.5 rounded text-xs font-mono shrink-0"
-                  [class]="app.isActive ? 'bg-neon-green/10 text-neon-green border border-neon-green/30' : 'bg-neon-red/10 text-neon-red border border-neon-red/30'">
+                  [class]="app.isActive ? 'bg-theme-success/10 text-theme-success border border-theme-success/30' : 'bg-theme-error/10 text-theme-error border border-theme-error/30'">
               {{ app.isActive ? 'ACTIVE' : 'INACTIVE' }}
             </span>
           </div>
@@ -42,17 +42,17 @@
         <!-- Card Body -->
         <div class="p-5">
           <!-- Description -->
-          <p class="text-terminal-dim text-sm mb-4 line-clamp-2">
+          <p class="text-theme-text-dim text-sm mb-4 line-clamp-2">
             {{ app.description || '// No description provided' }}
           </p>
 
           <!-- API Key Section -->
-          <div class="bg-cyber-surface rounded-lg border border-cyber-border p-3 mb-4">
+          <div class="bg-theme-surface rounded-lg border border-theme-border p-3 mb-4">
             <div class="flex items-center justify-between mb-2">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">API Key</label>
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">API Key</label>
               <div class="flex gap-1">
                 <button (click)="toggleApiKey(app.id)" title="Show/Hide"
-                        class="w-7 h-7 rounded bg-cyber-card border border-cyber-border flex items-center justify-center text-terminal-dim hover:text-neon-cyan hover:border-neon-cyan/30 transition-all">
+                        class="w-7 h-7 rounded bg-theme-card border border-theme-border flex items-center justify-center text-theme-text-dim hover:text-theme-secondary hover:border-theme-secondary/30 transition-all">
                   @if (showApiKey() === app.id) {
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
@@ -65,14 +65,14 @@
                   }
                 </button>
                 <button (click)="copyApiKey(app.apiKey)" title="Copy"
-                        class="w-7 h-7 rounded bg-cyber-card border border-cyber-border flex items-center justify-center text-terminal-dim hover:text-neon-green hover:border-neon-green/30 transition-all">
+                        class="w-7 h-7 rounded bg-theme-card border border-theme-border flex items-center justify-center text-theme-text-dim hover:text-theme-primary hover:border-theme-primary/30 transition-all">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                 </button>
               </div>
             </div>
-            <code class="text-xs font-mono text-neon-cyan block truncate">
+            <code class="text-xs font-mono text-theme-secondary block truncate">
               {{ showApiKey() === app.id ? app.apiKey : '••••••••••••••••••••••••••••••••' }}
             </code>
           </div>
@@ -80,16 +80,16 @@
           <!-- Action Buttons -->
           <div class="grid grid-cols-3 gap-2">
             <button (click)="regenerateKey(app)"
-                    class="py-2 px-2 text-xs font-mono bg-cyber-surface border border-cyber-border rounded cursor-pointer hover:border-neon-cyan/50 hover:text-neon-cyan transition-all text-terminal-dim text-center">
+                    class="py-2 px-2 text-xs font-mono bg-theme-surface border border-theme-border rounded cursor-pointer hover:border-theme-secondary/50 hover:text-theme-secondary transition-all text-theme-text-dim text-center">
               REGEN
             </button>
             <button (click)="toggleActive(app)"
-                    class="py-2 px-2 text-xs font-mono bg-cyber-surface border rounded cursor-pointer transition-all text-center"
-                    [class]="app.isActive ? 'border-neon-yellow/30 text-neon-yellow hover:border-neon-yellow/50' : 'border-neon-green/30 text-neon-green hover:border-neon-green/50'">
+                    class="py-2 px-2 text-xs font-mono bg-theme-surface border rounded cursor-pointer transition-all text-center"
+                    [class]="app.isActive ? 'border-theme-warning/30 text-theme-warning hover:border-theme-warning/50' : 'border-theme-success/30 text-theme-success hover:border-theme-success/50'">
               {{ app.isActive ? 'DISABLE' : 'ENABLE' }}
             </button>
             <button (click)="deleteApp(app)"
-                    class="py-2 px-2 text-xs font-mono bg-cyber-surface border border-neon-red/30 text-neon-red rounded cursor-pointer hover:border-neon-red/50 hover:bg-neon-red/10 transition-all text-center">
+                    class="py-2 px-2 text-xs font-mono bg-theme-surface border border-theme-error/30 text-theme-error rounded cursor-pointer hover:border-theme-error/50 hover:bg-theme-error/10 transition-all text-center">
               DELETE
             </button>
           </div>
@@ -101,13 +101,13 @@
     @if (applications().length === 0) {
       <div class="col-span-full">
         <div class="cyber-card p-12 text-center">
-          <div class="w-20 h-20 rounded-2xl bg-cyber-surface border border-cyber-border flex items-center justify-center mx-auto mb-6">
-            <svg class="w-10 h-10 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="w-20 h-20 rounded-2xl bg-theme-surface border border-theme-border flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-theme-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
           </div>
-          <h3 class="text-terminal-text font-medium mb-2">No Applications</h3>
-          <p class="text-terminal-dim text-sm font-mono mb-6">// Create your first application to start logging</p>
+          <h3 class="text-theme-text font-medium mb-2">No Applications</h3>
+          <p class="text-theme-text-dim text-sm font-mono mb-6">// Create your first application to start logging</p>
           <button (click)="showCreateModal.set(true)" class="btn-neon-filled">
             CREATE_FIRST_APP
           </button>
@@ -121,20 +121,20 @@
     <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" (click)="showCreateModal.set(false)">
       <div class="cyber-card w-full max-w-md overflow-hidden animate-slide-up" (click)="$event.stopPropagation()">
         <!-- Modal Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-cyber-border bg-cyber-surface/50">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-theme-border bg-theme-surface/50">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
-              <svg class="w-4 h-4 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="w-8 h-8 rounded bg-theme-primary/10 border border-theme-primary/30 flex items-center justify-center">
+              <svg class="w-4 h-4 text-theme-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
             <div>
-              <h3 class="text-terminal-text font-medium text-sm">New Application</h3>
-              <p class="text-terminal-comment text-xs font-mono">// CREATE_NEW_APP</p>
+              <h3 class="text-theme-text font-medium text-sm">New Application</h3>
+              <p class="text-theme-text-comment text-xs font-mono">// CREATE_NEW_APP</p>
             </div>
           </div>
           <button (click)="showCreateModal.set(false)"
-                  class="w-8 h-8 rounded bg-cyber-surface border border-cyber-border flex items-center justify-center text-terminal-dim hover:border-neon-red/50 hover:text-neon-red transition-all">
+                  class="w-8 h-8 rounded bg-theme-surface border border-theme-border flex items-center justify-center text-theme-text-dim hover:border-theme-error/50 hover:text-theme-error transition-all">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -146,8 +146,8 @@
           <form (ngSubmit)="createApplication()" class="space-y-5">
             <!-- Name Field -->
             <div class="space-y-2">
-              <label class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
-                <span class="text-neon-green">$</span> name
+              <label class="flex items-center gap-2 text-sm text-theme-text-dim font-mono">
+                <span class="text-theme-primary">$</span> name
               </label>
               <input type="text" [(ngModel)]="newApp.name" name="name" required maxlength="100"
                      placeholder="my-awesome-app"
@@ -156,9 +156,9 @@
 
             <!-- Description Field -->
             <div class="space-y-2">
-              <label class="flex items-center gap-2 text-sm text-terminal-dim font-mono">
-                <span class="text-neon-green">$</span> description
-                <span class="text-terminal-comment text-xs">(optional)</span>
+              <label class="flex items-center gap-2 text-sm text-theme-text-dim font-mono">
+                <span class="text-theme-primary">$</span> description
+                <span class="text-theme-text-comment text-xs">(optional)</span>
               </label>
               <textarea [(ngModel)]="newApp.description" name="description" rows="3" maxlength="500"
                         placeholder="Describe your application..."
@@ -168,7 +168,7 @@
             <!-- Action Buttons -->
             <div class="flex justify-end gap-3 pt-2">
               <button type="button" (click)="showCreateModal.set(false)"
-                      class="py-2.5 px-5 bg-cyber-surface border border-cyber-border rounded font-mono text-sm text-terminal-dim cursor-pointer hover:border-neon-red/50 hover:text-neon-red transition-all">
+                      class="py-2.5 px-5 bg-theme-surface border border-theme-border rounded font-mono text-sm text-theme-text-dim cursor-pointer hover:border-theme-error/50 hover:text-theme-error transition-all">
                 CANCEL
               </button>
               <button type="submit" [disabled]="!newApp.name"

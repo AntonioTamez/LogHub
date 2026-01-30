@@ -1,8 +1,8 @@
 <div class="p-6 min-h-screen">
   <!-- Header -->
   <div class="mb-8">
-    <h1 class="font-display text-2xl font-bold text-neon-green tracking-wider mb-1">LOG_VIEWER</h1>
-    <p class="text-terminal-dim text-sm font-mono">// SEARCH & ANALYZE</p>
+    <h1 class="font-display text-2xl font-bold text-theme-primary tracking-wider mb-1">LOG_VIEWER</h1>
+    <p class="text-theme-text-dim text-sm font-mono">// SEARCH & ANALYZE</p>
   </div>
 
   <!-- Filters -->
@@ -17,7 +17,7 @@
             <option [value]="app.id">{{ app.name }}</option>
           }
         </select>
-        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-theme-text-dim pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
@@ -34,7 +34,7 @@
           <option [ngValue]="4">Error+</option>
           <option [ngValue]="5">Critical</option>
         </select>
-        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-theme-text-dim pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </div>
@@ -48,7 +48,7 @@
           (keyup.enter)="search()"
           class="cyber-input py-2.5 pl-10 pr-4 w-full"
         />
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-terminal-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-theme-text-dim" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
@@ -61,7 +61,7 @@
         SEARCH
       </button>
       <button (click)="clearFilters()"
-              class="py-2.5 px-5 bg-cyber-surface border border-cyber-border rounded font-mono text-sm text-terminal-dim cursor-pointer hover:border-neon-red/50 hover:text-neon-red transition-all">
+              class="py-2.5 px-5 bg-theme-surface border border-theme-border rounded font-mono text-sm text-theme-text-dim cursor-pointer hover:border-theme-error/50 hover:text-theme-error transition-all">
         CLEAR
       </button>
     </div>
@@ -70,8 +70,8 @@
   <!-- Loading -->
   @if (loading()) {
     <div class="flex items-center justify-center py-12">
-      <div class="flex items-center gap-3 text-neon-green">
-        <div class="w-5 h-5 border-2 border-neon-green/30 border-t-neon-green rounded-full animate-spin"></div>
+      <div class="flex items-center gap-3 text-theme-primary">
+        <div class="w-5 h-5 border-2 border-theme-primary/30 border-t-theme-primary rounded-full animate-spin"></div>
         <span class="font-mono text-sm">Loading logs...</span>
       </div>
     </div>
@@ -80,19 +80,19 @@
   <!-- Logs Table -->
   <div class="cyber-card overflow-hidden animate-slide-up" [class.opacity-50]="loading()" [class.pointer-events-none]="loading()">
     <!-- Table Header -->
-    <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-cyber-border bg-cyber-surface/50">
-      <div class="col-span-2 text-xs font-mono text-terminal-dim uppercase tracking-wider">Timestamp</div>
-      <div class="col-span-2 text-xs font-mono text-terminal-dim uppercase tracking-wider">Level</div>
-      <div class="col-span-2 text-xs font-mono text-terminal-dim uppercase tracking-wider">Application</div>
-      <div class="col-span-6 text-xs font-mono text-terminal-dim uppercase tracking-wider">Message</div>
+    <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-theme-border bg-theme-surface/50">
+      <div class="col-span-2 text-xs font-mono text-theme-text-dim uppercase tracking-wider">Timestamp</div>
+      <div class="col-span-2 text-xs font-mono text-theme-text-dim uppercase tracking-wider">Level</div>
+      <div class="col-span-2 text-xs font-mono text-theme-text-dim uppercase tracking-wider">Application</div>
+      <div class="col-span-6 text-xs font-mono text-theme-text-dim uppercase tracking-wider">Message</div>
     </div>
 
     <!-- Table Body -->
-    <div class="divide-y divide-cyber-border/50">
+    <div class="divide-y divide-theme-border/50">
       @for (log of logs(); track log.id) {
-        <div class="grid grid-cols-12 gap-4 px-6 py-4 cursor-pointer hover:bg-cyber-surface/50 transition-colors group"
+        <div class="grid grid-cols-12 gap-4 px-6 py-4 cursor-pointer hover:bg-theme-surface/50 transition-colors group"
              (click)="selectLog(log)">
-          <div class="col-span-2 text-terminal-dim text-sm font-mono">{{ log.timestamp | date:'short' }}</div>
+          <div class="col-span-2 text-theme-text-dim text-sm font-mono">{{ log.timestamp | date:'short' }}</div>
           <div class="col-span-2">
             <span class="py-1 px-3 rounded text-xs font-mono font-medium"
                   [class]="{
@@ -106,19 +106,19 @@
               {{ getLogLevelName(log.level) }}
             </span>
           </div>
-          <div class="col-span-2 text-terminal-text text-sm font-mono truncate">{{ log.applicationName }}</div>
-          <div class="col-span-6 text-terminal-text text-sm font-mono truncate group-hover:text-neon-green transition-colors">
+          <div class="col-span-2 text-theme-text text-sm font-mono truncate">{{ log.applicationName }}</div>
+          <div class="col-span-6 text-theme-text text-sm font-mono truncate group-hover:text-theme-primary transition-colors">
             {{ log.message }}
           </div>
         </div>
       }
       @if (logs().length === 0 && !loading()) {
-        <div class="flex flex-col items-center justify-center py-16 text-terminal-dim">
+        <div class="flex flex-col items-center justify-center py-16 text-theme-text-dim">
           <svg class="w-16 h-16 mb-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <p class="font-mono text-sm">No logs found</p>
-          <p class="font-mono text-xs text-terminal-comment mt-1">// Try adjusting your filters</p>
+          <p class="font-mono text-xs text-theme-text-comment mt-1">// Try adjusting your filters</p>
         </div>
       }
     </div>
@@ -127,19 +127,19 @@
   <!-- Pagination -->
   <div class="flex justify-center items-center gap-4 py-6">
     <button [disabled]="!pagedResponse()?.hasPreviousPage" (click)="goToPage(currentPage() - 1)"
-            class="py-2.5 px-5 bg-cyber-surface border border-cyber-border rounded font-mono text-sm text-terminal-dim cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:border-neon-green/50 hover:text-neon-green transition-all flex items-center gap-2">
+            class="py-2.5 px-5 bg-theme-surface border border-theme-border rounded font-mono text-sm text-theme-text-dim cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:border-theme-primary/50 hover:text-theme-primary transition-all flex items-center gap-2">
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
       PREV
     </button>
-    <span class="text-terminal-dim font-mono text-sm px-4 py-2 bg-cyber-surface rounded border border-cyber-border">
-      <span class="text-neon-green">{{ currentPage() }}</span>
+    <span class="text-theme-text-dim font-mono text-sm px-4 py-2 bg-theme-surface rounded border border-theme-border">
+      <span class="text-theme-primary">{{ currentPage() }}</span>
       <span class="mx-2">/</span>
       <span>{{ pagedResponse()?.totalPages || 1 }}</span>
     </span>
     <button [disabled]="!pagedResponse()?.hasNextPage" (click)="goToPage(currentPage() + 1)"
-            class="py-2.5 px-5 bg-cyber-surface border border-cyber-border rounded font-mono text-sm text-terminal-dim cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:border-neon-green/50 hover:text-neon-green transition-all flex items-center gap-2">
+            class="py-2.5 px-5 bg-theme-surface border border-theme-border rounded font-mono text-sm text-theme-text-dim cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:border-theme-primary/50 hover:text-theme-primary transition-all flex items-center gap-2">
       NEXT
       <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -152,20 +152,20 @@
     <div class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" (click)="selectedLog.set(null)">
       <div class="cyber-card w-full max-w-3xl max-h-[90vh] overflow-hidden animate-slide-up" (click)="$event.stopPropagation()">
         <!-- Modal Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-cyber-border bg-cyber-surface/50">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-theme-border bg-theme-surface/50">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded bg-neon-green/10 border border-neon-green/30 flex items-center justify-center">
-              <svg class="w-4 h-4 text-neon-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="w-8 h-8 rounded bg-theme-primary/10 border border-theme-primary/30 flex items-center justify-center">
+              <svg class="w-4 h-4 text-theme-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
             <div>
-              <h3 class="text-terminal-text font-medium text-sm">Log Details</h3>
-              <p class="text-terminal-comment text-xs font-mono">// ID: {{ selectedLog()!.id }}</p>
+              <h3 class="text-theme-text font-medium text-sm">Log Details</h3>
+              <p class="text-theme-text-comment text-xs font-mono">// ID: {{ selectedLog()!.id }}</p>
             </div>
           </div>
           <button (click)="selectedLog.set(null)"
-                  class="w-8 h-8 rounded bg-cyber-surface border border-cyber-border flex items-center justify-center text-terminal-dim hover:border-neon-red/50 hover:text-neon-red transition-all">
+                  class="w-8 h-8 rounded bg-theme-surface border border-theme-border flex items-center justify-center text-theme-text-dim hover:border-theme-error/50 hover:text-theme-error transition-all">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -176,12 +176,12 @@
         <div class="p-6 overflow-y-auto max-h-[calc(90vh-80px)] space-y-4">
           <!-- Timestamp & Level Row -->
           <div class="grid grid-cols-2 gap-4">
-            <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Timestamp</label>
-              <p class="text-terminal-text font-mono text-sm mt-1">{{ selectedLog()!.timestamp | date:'medium' }}</p>
+            <div class="bg-theme-surface p-4 rounded border border-theme-border">
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Timestamp</label>
+              <p class="text-theme-text font-mono text-sm mt-1">{{ selectedLog()!.timestamp | date:'medium' }}</p>
             </div>
-            <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Level</label>
+            <div class="bg-theme-surface p-4 rounded border border-theme-border">
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Level</label>
               <div class="mt-2">
                 <span class="py-1 px-3 rounded text-xs font-mono font-medium"
                       [class]="{
@@ -199,46 +199,46 @@
           </div>
 
           <!-- Application -->
-          <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-            <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Application</label>
-            <p class="text-neon-cyan font-mono text-sm mt-1">{{ selectedLog()!.applicationName }}</p>
+          <div class="bg-theme-surface p-4 rounded border border-theme-border">
+            <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Application</label>
+            <p class="text-theme-secondary font-mono text-sm mt-1">{{ selectedLog()!.applicationName }}</p>
           </div>
 
           <!-- Message -->
-          <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-            <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Message</label>
-            <p class="text-terminal-text font-mono text-sm mt-2 break-words leading-relaxed">{{ selectedLog()!.message }}</p>
+          <div class="bg-theme-surface p-4 rounded border border-theme-border">
+            <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Message</label>
+            <p class="text-theme-text font-mono text-sm mt-2 break-words leading-relaxed">{{ selectedLog()!.message }}</p>
           </div>
 
           <!-- Exception -->
           @if (selectedLog()!.exception) {
-            <div class="bg-neon-red/5 p-4 rounded border border-neon-red/30">
-              <label class="text-xs font-mono text-neon-red uppercase tracking-wider">Exception</label>
-              <pre class="text-neon-red/80 font-mono text-xs mt-2 overflow-x-auto whitespace-pre-wrap">{{ selectedLog()!.exception }}</pre>
+            <div class="bg-theme-error/5 p-4 rounded border border-theme-error/30">
+              <label class="text-xs font-mono text-theme-error uppercase tracking-wider">Exception</label>
+              <pre class="text-theme-error/80 font-mono text-xs mt-2 overflow-x-auto whitespace-pre-wrap">{{ selectedLog()!.exception }}</pre>
             </div>
           }
 
           <!-- Stack Trace -->
           @if (selectedLog()!.stackTrace) {
-            <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Stack Trace</label>
-              <pre class="text-terminal-dim font-mono text-xs mt-2 overflow-x-auto whitespace-pre-wrap">{{ selectedLog()!.stackTrace }}</pre>
+            <div class="bg-theme-surface p-4 rounded border border-theme-border">
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Stack Trace</label>
+              <pre class="text-theme-text-dim font-mono text-xs mt-2 overflow-x-auto whitespace-pre-wrap">{{ selectedLog()!.stackTrace }}</pre>
             </div>
           }
 
           <!-- Properties -->
           @if (selectedLog()!.properties) {
-            <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Properties</label>
-              <pre class="text-neon-cyan/80 font-mono text-xs mt-2 overflow-x-auto">{{ selectedLog()!.properties | json }}</pre>
+            <div class="bg-theme-surface p-4 rounded border border-theme-border">
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Properties</label>
+              <pre class="text-theme-secondary/80 font-mono text-xs mt-2 overflow-x-auto">{{ selectedLog()!.properties | json }}</pre>
             </div>
           }
 
           <!-- Correlation ID -->
           @if (selectedLog()!.correlationId) {
-            <div class="bg-cyber-surface p-4 rounded border border-cyber-border">
-              <label class="text-xs font-mono text-terminal-comment uppercase tracking-wider">Correlation ID</label>
-              <p class="text-neon-purple font-mono text-sm mt-1">{{ selectedLog()!.correlationId }}</p>
+            <div class="bg-theme-surface p-4 rounded border border-theme-border">
+              <label class="text-xs font-mono text-theme-text-comment uppercase tracking-wider">Correlation ID</label>
+              <p class="text-theme-accent font-mono text-sm mt-1">{{ selectedLog()!.correlationId }}</p>
             </div>
           }
         </div>
