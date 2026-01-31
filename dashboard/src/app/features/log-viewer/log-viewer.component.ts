@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LogService } from '../../core/services/log.service';
 import { ApplicationService } from '../../core/services/application.service';
+import { AlertService } from '../../core/services/alert.service';
 import { LogEntry, LogLevel, LogQueryParams, PagedResponse } from '../../core/models/log-entry.model';
 import { Application } from '../../core/models/application.model';
 
@@ -15,6 +16,7 @@ import { Application } from '../../core/models/application.model';
 export class LogViewerComponent implements OnInit {
   private logService = inject(LogService);
   private applicationService = inject(ApplicationService);
+  private alertService = inject(AlertService);
 
   applications = signal<Application[]>([]);
   logs = signal<LogEntry[]>([]);
@@ -48,7 +50,10 @@ export class LogViewerComponent implements OnInit {
         this.pagedResponse.set(response);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false)
+      error: () => {
+        this.loading.set(false);
+        this.alertService.toast('Failed to load logs', 'error');
+      }
     });
   }
 

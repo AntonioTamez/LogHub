@@ -4,6 +4,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 import { LogService } from '../../core/services/log.service';
 import { SignalRService } from '../../core/services/signalr.service';
+import { AlertService } from '../../core/services/alert.service';
 import { DashboardStats, DashboardSummary } from '../../core/models/dashboard.model';
 import { LogLevel } from '../../core/models/log-entry.model';
 
@@ -15,6 +16,7 @@ import { LogLevel } from '../../core/models/log-entry.model';
 })
 export class DashboardComponent implements OnInit {
   private logService = inject(LogService);
+  private alertService = inject(AlertService);
   signalRService = inject(SignalRService);
 
   summary = signal<DashboardSummary | null>(null);
@@ -81,11 +83,17 @@ export class DashboardComponent implements OnInit {
   }
 
   loadData(): void {
-    this.logService.getSummary().subscribe(data => this.summary.set(data));
+    this.logService.getSummary().subscribe({
+      next: (data) => this.summary.set(data),
+      error: () => this.alertService.toast('Failed to load summary', 'error')
+    });
 
     const from = new Date();
     from.setDate(from.getDate() - 7);
-    this.logService.getStats(undefined, from.toISOString()).subscribe(data => this.stats.set(data));
+    this.logService.getStats(undefined, from.toISOString()).subscribe({
+      next: (data) => this.stats.set(data),
+      error: () => this.alertService.toast('Failed to load statistics', 'error')
+    });
   }
 
   getLogLevelName(level: LogLevel): string {

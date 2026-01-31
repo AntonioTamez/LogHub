@@ -100,16 +100,6 @@
             <p class="text-xs text-theme-text-comment font-mono">// min 6 characters</p>
           </div>
 
-          <!-- Error Message -->
-          @if (error) {
-            <div class="flex items-center gap-3 p-4 rounded-lg bg-theme-error/10 border border-theme-error/30 animate-slide-up">
-              <svg class="w-5 h-5 text-theme-error shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span class="text-theme-error text-sm font-mono">{{ error }}</span>
-            </div>
-          }
-
           <!-- Submit Button -->
           <button type="submit" [disabled]="loading || !registerForm.valid"
                   class="btn-neon-filled w-full mt-6 flex items-center justify-center gap-3">

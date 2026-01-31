@@ -277,3 +277,109 @@
 .border-theme-primary { border-color: var(--color-primary); }
 .border-theme-secondary { border-color: var(--color-secondary); }
 .border-theme-border { border-color: var(--color-border); }
+
+/* SweetAlert2 Custom Styles */
+.swal2-popup.swal-cyber-popup {
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--color-primary) 10%, transparent),
+    0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.swal2-popup.swal-cyber-popup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-primary) 50%, transparent), transparent);
+}
+
+.swal2-popup .swal-cyber-title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.swal2-popup .swal-cyber-content {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.swal2-popup .swal-cyber-confirm {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.swal2-popup .swal-cyber-confirm:hover {
+  box-shadow: 0 0 20px currentColor;
+}
+
+.swal2-popup .swal-cyber-cancel {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  background: transparent !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-text-dim) !important;
+  transition: all 0.3s ease;
+}
+
+.swal2-popup .swal-cyber-cancel:hover {
+  border-color: var(--color-error) !important;
+  color: var(--color-error) !important;
+  background: color-mix(in srgb, var(--color-error) 10%, transparent) !important;
+}
+
+.swal2-popup.swal-cyber-toast {
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.swal2-popup.swal-cyber-toast .swal2-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.swal2-timer-progress-bar {
+  background: var(--color-primary) !important;
+}
+
+.swal2-icon {
+  border-color: transparent !important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color: color-mix(in srgb, var(--color-success) 30%, transparent) !important;
+}
+
+.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+  background-color: var(--color-error) !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: color-mix(in srgb, var(--color-warning) 30%, transparent) !important;
+  color: var(--color-warning) !important;
+}
+
+.swal2-icon.swal2-info {
+  border-color: color-mix(in srgb, var(--color-info) 30%, transparent) !important;
+  color: var(--color-info) !important;
+}
+
+.swal2-icon.swal2-question {
+  border-color: color-mix(in srgb, var(--color-secondary) 30%, transparent) !important;
+  color: var(--color-secondary) !important;
+}
