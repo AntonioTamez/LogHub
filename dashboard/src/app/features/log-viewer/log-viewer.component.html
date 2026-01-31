@@ -12,7 +12,7 @@
       <div class="relative">
         <select [(ngModel)]="filters.applicationId" (change)="search()"
                 class="cyber-input py-2.5 px-4 pr-10 min-w-[180px] appearance-none cursor-pointer">
-          <option value="">All Applications</option>
+          <option value="undefined">All Applications</option>
           @for (app of applications(); track app.id) {
             <option [value]="app.id">{{ app.name }}</option>
           }

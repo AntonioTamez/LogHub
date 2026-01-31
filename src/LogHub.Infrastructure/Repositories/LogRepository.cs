@@ -144,6 +144,50 @@ public class LogRepository : Repository<LogEntry>, ILogRepository
         return stats;
     }
 
+    public async Task<LogStats> GetStatsByApplicationIdsAsync(
+        IEnumerable<Guid> applicationIds,
+        DateTimeOffset? from = null,
+        DateTimeOffset? to = null,
+        CancellationToken cancellationToken = default)
+    {
+        var appIdList = applicationIds.ToList();
+        var query = _dbSet.Where(l => appIdList.Contains(l.ApplicationId));
+
+        if (from.HasValue)
+            query = query.Where(l => l.Timestamp >= from.Value);
+
+        if (to.HasValue)
+            query = query.Where(l => l.Timestamp <= to.Value);
+
+        var logs = await query
+            .Include(l => l.Application)
+            .ToListAsync(cancellationToken);
+
+        var stats = new LogStats
+        {
+            TotalLogs = logs.Count,
+            TraceCount = logs.Count(l => l.Level == LogLevel.Trace),
+            DebugCount = logs.Count(l => l.Level == LogLevel.Debug),
+            InformationCount = logs.Count(l => l.Level == LogLevel.Information),
+            WarningCount = logs.Count(l => l.Level == LogLevel.Warning),
+            ErrorCount = logs.Count(l => l.Level == LogLevel.Error),
+            CriticalCount = logs.Count(l => l.Level == LogLevel.Critical),
+            LogsByApplication = logs
+                .GroupBy(l => l.Application?.Name ?? "Unknown")
+                .ToDictionary(g => g.Key, g => g.Count()),
+            LogsByHour = logs
+                .GroupBy(l => l.Timestamp.ToString("yyyy-MM-dd HH:00"))
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count()),
+            LogsByDay = logs
+                .GroupBy(l => l.Timestamp.ToString("yyyy-MM-dd"))
+                .OrderBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Count())
+        };
+
+        return stats;
+    }
+
     public async Task<int> DeleteOldLogsAsync(
         int retentionDays,
         CancellationToken cancellationToken = default)

@@ -23,6 +23,12 @@ public interface ILogRepository : IRepository<LogEntry>
         DateTimeOffset? to = null,
         CancellationToken cancellationToken = default);
 
+    Task<LogStats> GetStatsByApplicationIdsAsync(
+        IEnumerable<Guid> applicationIds,
+        DateTimeOffset? from = null,
+        DateTimeOffset? to = null,
+        CancellationToken cancellationToken = default);
+
     Task<int> DeleteOldLogsAsync(
         int retentionDays,
         CancellationToken cancellationToken = default);

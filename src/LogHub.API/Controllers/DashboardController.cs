@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using LogHub.API.DTOs;
+using LogHub.Core.DTOs;
 using LogHub.Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +32,14 @@ public class DashboardController : ControllerBase
     public async Task<IActionResult> GetStats([FromQuery] DashboardQueryRequest request)
     {
         var userId = GetUserId();
+        var userApps = await _unitOfWork.Applications.GetByUserIdAsync(userId);
+        var userAppsList = userApps.ToList();
 
         // Verify user owns the application if filtering by app
         if (request.ApplicationId.HasValue)
         {
-            var app = await _unitOfWork.Applications.GetByIdAsync(request.ApplicationId.Value);
-            if (app == null || app.UserId != userId)
+            var app = userAppsList.FirstOrDefault(a => a.Id == request.ApplicationId.Value);
+            if (app == null)
             {
                 return Forbid();
             }
@@ -46,11 +49,29 @@ public class DashboardController : ControllerBase
         var from = request.From ?? DateTimeOffset.UtcNow.AddDays(-7);
         var to = request.To ?? DateTimeOffset.UtcNow;
 
-        var stats = await _unitOfWork.Logs.GetStatsAsync(
-            request.ApplicationId,
-            from,
-            to
-        );
+        LogStats stats;
+        if (request.ApplicationId.HasValue)
+        {
+            // Filter by specific application
+            stats = await _unitOfWork.Logs.GetStatsAsync(
+                request.ApplicationId,
+                from,
+                to
+            );
+        }
+        else
+        {
+            // Filter by all user's applications
+            var applicationIds = userAppsList.Select(a => a.Id).ToList();
+            if (applicationIds.Any())
+            {
+                stats = await _unitOfWork.Logs.GetStatsByApplicationIdsAsync(applicationIds, from, to);
+            }
+            else
+            {
+                stats = new LogStats();
+            }
+        }
 
         return Ok(new DashboardStatsDto(
             stats.TotalLogs,
@@ -75,13 +96,24 @@ public class DashboardController : ControllerBase
     {
         var userId = GetUserId();
         var userApps = await _unitOfWork.Applications.GetByUserIdAsync(userId);
+        var userAppsList = userApps.ToList();
 
-        var totalApplications = userApps.Count();
-        var activeApplications = userApps.Count(a => a.IsActive);
+        var totalApplications = userAppsList.Count;
+        var activeApplications = userAppsList.Count(a => a.IsActive);
 
-        // Get stats for last 24 hours
+        // Get stats for last 24 hours, filtered by user's applications
         var from = DateTimeOffset.UtcNow.AddHours(-24);
-        var stats = await _unitOfWork.Logs.GetStatsAsync(from: from);
+        var applicationIds = userAppsList.Select(a => a.Id).ToList();
+
+        LogStats stats;
+        if (applicationIds.Any())
+        {
+            stats = await _unitOfWork.Logs.GetStatsByApplicationIdsAsync(applicationIds, from: from);
+        }
+        else
+        {
+            stats = new LogStats();
+        }
 
         return Ok(new
         {
